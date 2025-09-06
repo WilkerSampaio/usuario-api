@@ -6,6 +6,7 @@ import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
 import com.wilker.usuario_api.infrastructure.entity.UsuarioEntity;
 import com.wilker.usuario_api.infrastructure.exception.ConflictException;
+import com.wilker.usuario_api.infrastructure.exception.ResourceNotFoundException;
 import com.wilker.usuario_api.infrastructure.repository.EnderecoRepository;
 import com.wilker.usuario_api.infrastructure.repository.TelefoneRepository;
 import com.wilker.usuario_api.infrastructure.repository.UsuarioRepository;
@@ -53,6 +54,13 @@ public class UsuarioService {
                 new UsernamePasswordAuthenticationToken(
                         loginDTORequest.getEmail(), loginDTORequest.getSenha()));
         return "Bearer " + jwtUtil.generateToken(authentication.getName());
+    }
+
+    public UsuarioDTOResponse buscarUsuarioPeloEmail(String email){
+        UsuarioEntity usuario = usuarioRepository.findByEmail(email).orElseThrow(
+                ()->new ResourceNotFoundException("Email não encontrado"));
+
+        return usuarioConverter.converterParaDTO(usuario);
     }
 
 

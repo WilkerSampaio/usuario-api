@@ -6,10 +6,7 @@ import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
 import com.wilker.usuario_api.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuario")
@@ -24,6 +21,10 @@ public class UsuarioController {
     @PostMapping("/login")
     public String authenticarUsuario(@RequestBody LoginDTORequest loginDTORequest){
         return usuarioService.authenticarUsuario(loginDTORequest);
+    }
+    @GetMapping
+    public ResponseEntity<UsuarioDTOResponse> buscarUsuarioPeloEmail(@RequestParam ("email") String email){
+        return ResponseEntity.ok(usuarioService.buscarUsuarioPeloEmail(email));
     }
 
 
