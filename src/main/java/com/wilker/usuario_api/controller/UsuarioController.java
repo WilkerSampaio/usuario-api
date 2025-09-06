@@ -1,7 +1,9 @@
 package com.wilker.usuario_api.controller;
 
+import com.wilker.usuario_api.infrastructure.dto.in.EnderecoDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.in.LoginDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
+import com.wilker.usuario_api.infrastructure.dto.out.EnderecoDTOResponse;
 import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
 import com.wilker.usuario_api.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,11 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTOResponse> atualizarDadosUsuario(@RequestBody UsuarioDTORequest usuarioDTORequest,
                                                                     @RequestHeader("Authorization") String token){
         return ResponseEntity.ok(usuarioService.atualizarDadosUsuario(usuarioDTORequest, token));
+    }
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDTOResponse> atualizarEndereco(@RequestBody EnderecoDTORequest enderecoDTORequest,
+                                                                 @RequestParam("id") Long id){
+        return ResponseEntity.ok(usuarioService.atualizarEndereco(id, enderecoDTORequest));
     }
 
 
