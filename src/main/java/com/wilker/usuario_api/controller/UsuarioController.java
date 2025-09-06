@@ -1,5 +1,6 @@
 package com.wilker.usuario_api.controller;
 
+import com.wilker.usuario_api.infrastructure.dto.in.LoginDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
 import com.wilker.usuario_api.service.UsuarioService;
@@ -20,5 +21,10 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTOResponse> registraUsuario(@RequestBody UsuarioDTORequest usuarioDTORequest) {
         return ResponseEntity.ok(usuarioService.salvarUsuario(usuarioDTORequest));
     }
+    @PostMapping("/login")
+    public String authenticarUsuario(@RequestBody LoginDTORequest loginDTORequest){
+        return usuarioService.authenticarUsuario(loginDTORequest);
+    }
+
 
 }

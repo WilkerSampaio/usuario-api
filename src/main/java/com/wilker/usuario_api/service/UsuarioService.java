@@ -1,6 +1,7 @@
 package com.wilker.usuario_api.service;
 
 import com.wilker.usuario_api.infrastructure.converter.UsuarioConverter;
+import com.wilker.usuario_api.infrastructure.dto.in.LoginDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
 import com.wilker.usuario_api.infrastructure.entity.UsuarioEntity;
@@ -11,6 +12,8 @@ import com.wilker.usuario_api.infrastructure.repository.UsuarioRepository;
 import com.wilker.usuario_api.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +47,14 @@ public class UsuarioService {
     public boolean verificarEmailExistente(String email){
         return usuarioRepository.existsByEmail(email);
     }
+
+    public String authenticarUsuario(LoginDTORequest loginDTORequest){
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginDTORequest.getEmail(), loginDTORequest.getSenha()));
+        return "Bearer " + jwtUtil.generateToken(authentication.getName());
+    }
+
 
 
 }
