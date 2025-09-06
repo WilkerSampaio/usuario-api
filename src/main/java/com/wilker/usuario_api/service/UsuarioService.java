@@ -1,9 +1,12 @@
 package com.wilker.usuario_api.service;
 
 import com.wilker.usuario_api.infrastructure.converter.UsuarioConverter;
+import com.wilker.usuario_api.infrastructure.dto.in.EnderecoDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.in.LoginDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
+import com.wilker.usuario_api.infrastructure.dto.out.EnderecoDTOResponse;
 import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
+import com.wilker.usuario_api.infrastructure.entity.EnderecoEntity;
 import com.wilker.usuario_api.infrastructure.entity.UsuarioEntity;
 import com.wilker.usuario_api.infrastructure.exception.ConflictException;
 import com.wilker.usuario_api.infrastructure.exception.ResourceNotFoundException;
@@ -79,5 +82,13 @@ public class UsuarioService {
 
         usuarioConverter.updateUsuario(usuarioDTORequest, usuarioEntity);
         return usuarioConverter.converterParaDTO(usuarioRepository.save(usuarioEntity));
+    }
+
+    public EnderecoDTOResponse atualizarEndereco(Long idEndereco, EnderecoDTORequest enderecoDTORequest){
+        EnderecoEntity enderecoEntity = enderecoRepository.findById(idEndereco).orElseThrow(
+                () -> new ResourceNotFoundException("ID não encontrado " + idEndereco));
+        EnderecoEntity enderecoAlteradoEntity = usuarioConverter.updateEndereco(enderecoDTORequest, enderecoEntity);
+
+        return usuarioConverter.converterParaDTO(enderecoRepository.save(enderecoAlteradoEntity));
     }
 }
