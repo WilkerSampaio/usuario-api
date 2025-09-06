@@ -33,11 +33,11 @@ public class UsuarioEntity implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private List<EnderecoEntity> enderecoEntities;
+    private List<EnderecoEntity> enderecos;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private List<TelefoneEntity> telefoneEntities;
+    private List<TelefoneEntity> telefones;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

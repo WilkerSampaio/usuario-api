@@ -1,4 +1,7 @@
 package com.wilker.usuario_api.service;
 
-public class Service {
+public class UsuarioService {
+
+
+
 }
