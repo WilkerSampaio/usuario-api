@@ -1,7 +1,49 @@
 package com.wilker.usuario_api.service;
 
-public class UsuarioService {
+import com.wilker.usuario_api.infrastructure.converter.UsuarioConverter;
+import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
+import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
+import com.wilker.usuario_api.infrastructure.entity.UsuarioEntity;
+import com.wilker.usuario_api.infrastructure.exception.ConflictException;
+import com.wilker.usuario_api.infrastructure.repository.EnderecoRepository;
+import com.wilker.usuario_api.infrastructure.repository.TelefoneRepository;
+import com.wilker.usuario_api.infrastructure.repository.UsuarioRepository;
+import com.wilker.usuario_api.infrastructure.security.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
+public class UsuarioService {
+    private final UsuarioRepository usuarioRepository;
+    private final UsuarioConverter usuarioConverter;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
+    private final EnderecoRepository enderecoRepository;
+    private final TelefoneRepository telefoneRepository;
+
+    public UsuarioDTOResponse salvarUsuario(UsuarioDTORequest usuarioDTORequest){
+        emailExiste(usuarioDTORequest.getEmail());
+
+        UsuarioEntity usuarioEntity = usuarioConverter.converterParaEntity(usuarioDTORequest);
+        usuarioEntity.setSenha(passwordEncoder.encode(usuarioEntity.getSenha()));
+        UsuarioEntity UsuarioSalvo = usuarioRepository.save(usuarioEntity);
+
+        return usuarioConverter.converterParaDTO(UsuarioSalvo);
+    }
+
+    public void emailExiste(String email){
+        if(verificarEmailExistente(email)){
+            throw new ConflictException("Email já cadastrado!");
+        }
+    }
+
+    public boolean verificarEmailExistente(String email){
+        return usuarioRepository.existsByEmail(email);
+    }
 
 
 }
