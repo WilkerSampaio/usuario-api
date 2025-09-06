@@ -63,6 +63,11 @@ public class UsuarioService {
         return usuarioConverter.converterParaDTO(usuario);
     }
 
+    public void deletaUsuarioPeloEmail(String email){
+        buscarUsuarioPeloEmail(email);
+        usuarioRepository.deleteByEmail(email);
+    }
+
 
 
 }
