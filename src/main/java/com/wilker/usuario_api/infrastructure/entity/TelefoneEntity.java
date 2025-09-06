@@ -24,6 +24,6 @@ public class TelefoneEntity {
     private String numero;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "usuario_id", nullable = false)
+    @JoinColumn (name = "usuario_id", nullable = false)
     private UsuarioEntity usuarioEntity;
 }
