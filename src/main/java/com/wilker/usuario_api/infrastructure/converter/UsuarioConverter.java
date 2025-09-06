@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class UsuarioConverter {
 
-    // ----------- CONVERSÃO DE DTO PARA ENTIDADE (Entrada) -----------
+    // ----------- Convserão de DTO par ENTIDADE  -----------
 
     public UsuarioEntity converterParaEntity(UsuarioDTORequest usuarioDTORequest) {
         return UsuarioEntity.builder()
@@ -59,7 +59,7 @@ public class UsuarioConverter {
                 .toList();
     }
 
-    // ----------- CONVERSÃO DE ENTIDADE PARA DTO (Saída) -----------
+    // ----------- Conversão de ENTIDADE para DTO -----------
 
     public UsuarioDTOResponse converterParaDTO(UsuarioEntity usuarioEntity) {
         return UsuarioDTOResponse.builder()
