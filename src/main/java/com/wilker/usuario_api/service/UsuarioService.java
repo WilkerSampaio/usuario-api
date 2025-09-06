@@ -102,6 +102,14 @@ public class UsuarioService {
 
         return usuarioConverter.converterParaDTO(telefoneRepository.save(telefoneAlteradoEntity));
     }
+    public EnderecoDTOResponse cadastrarEndereco(EnderecoDTORequest enderecoDTORequest, String token){
+        String email = jwtUtil.extractUsername(token.substring(7));
+        UsuarioEntity usuarioEntity = usuarioRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Email não encontrado"));
+
+        EnderecoEntity enderecoEntity = usuarioConverter.NovoEnderecoParaEntity(enderecoDTORequest, usuarioEntity);
+        return usuarioConverter.converterParaDTO(enderecoRepository.save(enderecoEntity));
+    }
 
 
 }
