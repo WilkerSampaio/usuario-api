@@ -2,8 +2,10 @@ package com.wilker.usuario_api.controller;
 
 import com.wilker.usuario_api.infrastructure.dto.in.EnderecoDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.in.LoginDTORequest;
+import com.wilker.usuario_api.infrastructure.dto.in.TelefoneDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.out.EnderecoDTOResponse;
+import com.wilker.usuario_api.infrastructure.dto.out.TelefoneDTOResponse;
 import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
 import com.wilker.usuario_api.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -40,9 +42,15 @@ public class UsuarioController {
     }
     @PutMapping("/endereco")
     public ResponseEntity<EnderecoDTOResponse> atualizarEndereco(@RequestBody EnderecoDTORequest enderecoDTORequest,
-                                                                 @RequestParam("id") Long id){
-        return ResponseEntity.ok(usuarioService.atualizarEndereco(id, enderecoDTORequest));
+                                                                 @RequestParam("id") Long idEndereco){
+        return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTORequest, idEndereco));
     }
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTOResponse> atualizarTelefone(@RequestBody TelefoneDTORequest telefoneDTORequest,
+                                                                 @RequestParam ("id") Long idTelefone){
+        return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTORequest, idTelefone));
+    }
+
 
 
 }
