@@ -31,11 +31,12 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "senha")
     private String senha;
 
-    @OneToMany(mappedBy = "usuarioEntity", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<EnderecoEntity> enderecos;
 
-
-    @OneToMany(mappedBy = "usuarioEntity", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<TelefoneEntity> telefones;
 
     @Override

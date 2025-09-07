@@ -42,13 +42,15 @@ public class UsuarioController {
     }
     @PutMapping("/endereco")
     public ResponseEntity<EnderecoDTOResponse> atualizarEndereco(@RequestBody EnderecoDTORequest enderecoDTORequest,
-                                                                 @RequestParam("id") Long idEndereco){
-        return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTORequest, idEndereco));
+                                                                 @RequestParam("id") Long idEndereco,
+                                                                 @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTORequest, idEndereco, token ));
     }
     @PutMapping("/telefone")
     public ResponseEntity<TelefoneDTOResponse> atualizarTelefone(@RequestBody TelefoneDTORequest telefoneDTORequest,
-                                                                 @RequestParam ("id") Long idTelefone){
-        return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTORequest, idTelefone));
+                                                                 @RequestParam ("id") Long idTelefone,
+                                                                 @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTORequest, idTelefone, token));
     }
     @PostMapping("/endereco")
     public ResponseEntity<EnderecoDTOResponse> cadastrarEndereco (@RequestBody EnderecoDTORequest enderecoDTORequest,

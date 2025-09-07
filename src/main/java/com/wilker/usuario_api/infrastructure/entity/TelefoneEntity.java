@@ -23,7 +23,6 @@ public class TelefoneEntity {
     @Column(name = "numero", length = 9)
     private String numero;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name = "usuario_id", nullable = false)
-    private UsuarioEntity usuarioEntity;
+    @Column(name = "usuario_id")
+    private Long usuario_id;;
 }

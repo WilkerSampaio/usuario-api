@@ -35,9 +35,8 @@ public class EnderecoEntity {
     @Column(name = "cep", length = 9)
     private String cep;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private UsuarioEntity usuarioEntity;
+    @Column(name = "usuario_id")
+    private Long usuario_id;
 
 
 }
