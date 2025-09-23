@@ -1,5 +1,7 @@
 package com.wilker.usuario_api.infrastructure.security;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +20,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@SecurityScheme(name = SecurityConfig.SECURITY_SCHEME, type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT", scheme = "bearer")
+
 public class SecurityConfig {
 
+    public static final String SECURITY_SCHEME = "bearerAuth";
     // JwtUtil e UserDetailsService injetados pelo Spring, usados para validar tokens JWT
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
@@ -40,8 +46,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Desativa proteção CSRF (não necessária para APIs REST stateless)
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario/login").permitAll() // Permite acesso público ao login
-                        .requestMatchers(HttpMethod.POST, "/usuario").permitAll() // Permite cadastro de usuários sem autenticação
+                        .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuario/endereco/**").permitAll()// Permite cadastro de usuários sem autenticação
                         .requestMatchers("/usuario/**").authenticated() // Qualquer outro endpoint /usuario/ exige autenticação
                         .anyRequest().authenticated() // Qualquer outra requisição também exige autenticação
                 )
