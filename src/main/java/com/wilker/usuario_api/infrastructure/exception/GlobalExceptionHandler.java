@@ -24,5 +24,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDTOResponse> handleUnauthorizedException(UnauthorizedException ex){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorDTOResponse(ex.getMessage()));
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorDTOResponse> hanldeIllegalArgumentException(IllegalArgumentException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTOResponse(ex.getMessage()));
+    }
 
 }
