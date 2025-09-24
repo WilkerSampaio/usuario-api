@@ -13,12 +13,14 @@ import com.wilker.usuario_api.infrastructure.entity.TelefoneEntity;
 import com.wilker.usuario_api.infrastructure.entity.UsuarioEntity;
 import com.wilker.usuario_api.infrastructure.exception.ConflictException;
 import com.wilker.usuario_api.infrastructure.exception.ResourceNotFoundException;
+import com.wilker.usuario_api.infrastructure.exception.UnauthorizedException;
 import com.wilker.usuario_api.infrastructure.repository.EnderecoRepository;
 import com.wilker.usuario_api.infrastructure.repository.TelefoneRepository;
 import com.wilker.usuario_api.infrastructure.repository.UsuarioRepository;
 import com.wilker.usuario_api.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,10 +58,15 @@ public class UsuarioService {
     }
 
     public String authenticarUsuario(LoginDTORequest loginDTORequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginDTORequest.getEmail(), loginDTORequest.getSenha()));
-        return "Bearer " + jwtUtil.generateToken(authentication.getName());
+        try{
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginDTORequest.getEmail(), loginDTORequest.getSenha()));
+            return "Bearer " + jwtUtil.generateToken(authentication.getName());
+        }catch(UnauthorizedException e){
+            throw new UnauthorizedException("Credenciais inválidas. Verifique seu email e senha");
+        }
+
     }
 
     public UsuarioDTOResponse buscarUsuarioPeloEmail(String email) {
