@@ -24,5 +24,5 @@ public class TelefoneEntity {
     private String numero;
 
     @Column(name = "usuario_id")
-    private UsuarioEntity usuario_id;
+    private Long usuario_id;;
 }

@@ -36,7 +36,7 @@ public class EnderecoEntity {
     private String cep;
 
     @Column(name = "usuario_id")
-    private UsuarioEntity usuario_id;
+    private Long usuario_id;
 
 
 }

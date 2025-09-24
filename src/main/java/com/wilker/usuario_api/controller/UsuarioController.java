@@ -7,7 +7,12 @@ import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.out.EnderecoDTOResponse;
 import com.wilker.usuario_api.infrastructure.dto.out.TelefoneDTOResponse;
 import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
+import com.wilker.usuario_api.infrastructure.dto.out.ViaCepDTO;
+import com.wilker.usuario_api.infrastructure.security.SecurityConfig;
 import com.wilker.usuario_api.service.UsuarioService;
+import com.wilker.usuario_api.service.ViaCepService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +20,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/usuario")
 @RequiredArgsConstructor
+@Tag(name = "Tarefas", description = "Cadastrar tarefas do usuário")
+@SecurityRequirement(name = SecurityConfig.SECURITY_SCHEME)
+
 public class UsuarioController {
     private final UsuarioService usuarioService;
+    private final ViaCepService viaCepService;
 
     @PostMapping
     public ResponseEntity<UsuarioDTOResponse> registraUsuario(@RequestBody UsuarioDTORequest usuarioDTORequest) {
@@ -42,15 +51,29 @@ public class UsuarioController {
     }
     @PutMapping("/endereco")
     public ResponseEntity<EnderecoDTOResponse> atualizarEndereco(@RequestBody EnderecoDTORequest enderecoDTORequest,
-                                                                 @RequestParam("id") Long idEndereco){
-        return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTORequest, idEndereco));
+                                                                 @RequestParam("id") Long idEndereco,
+                                                                 @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTORequest, idEndereco, token ));
     }
     @PutMapping("/telefone")
     public ResponseEntity<TelefoneDTOResponse> atualizarTelefone(@RequestBody TelefoneDTORequest telefoneDTORequest,
-                                                                 @RequestParam ("id") Long idTelefone){
-        return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTORequest, idTelefone));
+                                                                 @RequestParam ("id") Long idTelefone,
+                                                                 @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTORequest, idTelefone, token));
     }
+    @PostMapping("/endereco")
+    public ResponseEntity<EnderecoDTOResponse> cadastrarEndereco (@RequestBody EnderecoDTORequest enderecoDTORequest,
+                                                                  @RequestHeader ("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.cadastrarEndereco(enderecoDTORequest,token));
+    }
+    @PostMapping("/telefone")
+    public ResponseEntity<TelefoneDTOResponse> cadastrarTelefone(@RequestBody TelefoneDTORequest telefoneDTORequest,
+                                                                 @RequestHeader ("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.cadastrarTelefone(telefoneDTORequest,token));
+    }
+    @GetMapping("/endereco/{cep}")
+    public ResponseEntity<ViaCepDTO> buscarDadosCep (@PathVariable ("cep") String cep){
+        return ResponseEntity.ok(viaCepService.buscaDadosEndereco(cep));
 
-
-
+    }
 }

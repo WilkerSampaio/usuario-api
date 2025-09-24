@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class UsuarioConverter {
 
-    // ----------- CONVERSÃO DE DTO PARA ENTIDADE (Entrada) -----------
+    // ----------- Convserão de DTO par ENTIDADE  -----------
 
     public UsuarioEntity converterParaEntity(UsuarioDTORequest usuarioDTORequest) {
         return UsuarioEntity.builder()
@@ -59,7 +59,7 @@ public class UsuarioConverter {
                 .toList();
     }
 
-    // ----------- CONVERSÃO DE ENTIDADE PARA DTO (Saída) -----------
+    // ----------- Conversão de ENTIDADE para DTO -----------
 
     public UsuarioDTOResponse converterParaDTO(UsuarioEntity usuarioEntity) {
         return UsuarioDTOResponse.builder()
@@ -116,7 +116,7 @@ public class UsuarioConverter {
                 .build();
     }
 
-    public EnderecoEntity updateEndereco(EnderecoDTORequest enderecoDTORequest, EnderecoEntity enderecoEntity){
+    public EnderecoEntity updateEndereco(EnderecoDTORequest enderecoDTORequest, EnderecoEntity enderecoEntity, Long idUsuario){
         return EnderecoEntity.builder()
                 .id(enderecoEntity.getId())
                 .rua(enderecoDTORequest.getRua() != null ? enderecoDTORequest.getRua() : enderecoEntity.getRua())
@@ -125,14 +125,16 @@ public class UsuarioConverter {
                 .estado(enderecoDTORequest.getEstado() != null ? enderecoDTORequest.getEstado() : enderecoEntity.getEstado())
                 .cidade(enderecoDTORequest.getCidade() != null ? enderecoDTORequest.getCidade() : enderecoEntity.getCidade())
                 .cep(enderecoDTORequest.getCep() != null ? enderecoDTORequest.getCep() : enderecoEntity.getCep())
+                .usuario_id(idUsuario)
                 .build();
     }
 
-    public TelefoneEntity updateTelefone(TelefoneDTORequest telefoneDTORequest, TelefoneEntity telefoneEntity){
+    public TelefoneEntity updateTelefone(TelefoneDTORequest telefoneDTORequest, TelefoneEntity telefoneEntity, Long idUsuario){
         return TelefoneEntity.builder()
                 .id(telefoneEntity.getId())
                 .ddd(telefoneDTORequest.getDdd() != null ? telefoneDTORequest.getDdd() : telefoneEntity.getDdd())
                 .numero(telefoneDTORequest.getNumero() != null ? telefoneDTORequest.getNumero() : telefoneEntity.getNumero())
+                .usuario_id(idUsuario)
                 .build();
     }
 
