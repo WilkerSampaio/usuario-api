@@ -50,6 +50,7 @@ dependencies {
 }
 
 // Dependência para Garantir que o OpenFeigh de Usuário e Agendador estejam na mesma versão
+
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
