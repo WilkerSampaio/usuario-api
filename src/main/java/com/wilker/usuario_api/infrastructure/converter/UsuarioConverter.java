@@ -116,7 +116,7 @@ public class UsuarioConverter {
                 .build();
     }
 
-    public EnderecoEntity updateEndereco(EnderecoDTORequest enderecoDTORequest, EnderecoEntity enderecoEntity, Long idUsuario){
+    public EnderecoEntity updateEndereco(EnderecoDTORequest enderecoDTORequest, EnderecoEntity enderecoEntity, UsuarioEntity usuarioEntity){
         return EnderecoEntity.builder()
                 .id(enderecoEntity.getId())
                 .rua(enderecoDTORequest.getRua() != null ? enderecoDTORequest.getRua() : enderecoEntity.getRua())
@@ -125,23 +125,23 @@ public class UsuarioConverter {
                 .estado(enderecoDTORequest.getEstado() != null ? enderecoDTORequest.getEstado() : enderecoEntity.getEstado())
                 .cidade(enderecoDTORequest.getCidade() != null ? enderecoDTORequest.getCidade() : enderecoEntity.getCidade())
                 .cep(enderecoDTORequest.getCep() != null ? enderecoDTORequest.getCep() : enderecoEntity.getCep())
-                .usuario_id(idUsuario)
+                .usuarioEntity(usuarioEntity)
                 .build();
     }
 
-    public TelefoneEntity updateTelefone(TelefoneDTORequest telefoneDTORequest, TelefoneEntity telefoneEntity, Long idUsuario){
+    public TelefoneEntity updateTelefone(TelefoneDTORequest telefoneDTORequest, TelefoneEntity telefoneEntity, UsuarioEntity usuarioEntity){
         return TelefoneEntity.builder()
                 .id(telefoneEntity.getId())
                 .ddd(telefoneDTORequest.getDdd() != null ? telefoneDTORequest.getDdd() : telefoneEntity.getDdd())
                 .numero(telefoneDTORequest.getNumero() != null ? telefoneDTORequest.getNumero() : telefoneEntity.getNumero())
-                .usuario_id(idUsuario)
+                .usuarioEntity(usuarioEntity)
                 .build();
     }
 
 
     // ----------- Cadastrar novo Endereco e Telefone -----------
 
-    public EnderecoEntity NovoEnderecoParaEntity(EnderecoDTORequest enderecoDTORequest, Long idUsuario){
+    public EnderecoEntity NovoEnderecoParaEntity(EnderecoDTORequest enderecoDTORequest, UsuarioEntity usuarioEntity){
         return EnderecoEntity.builder()
                 .rua(enderecoDTORequest.getRua())
                 .cidade(enderecoDTORequest.getCidade())
@@ -149,15 +149,15 @@ public class UsuarioConverter {
                 .complemento(enderecoDTORequest.getComplemento())
                 .estado(enderecoDTORequest.getEstado())
                 .numero(enderecoDTORequest.getNumero())
-                .usuario_id(idUsuario)
+                .usuarioEntity(usuarioEntity)
                 .build();
     }
 
-    public TelefoneEntity NovoTelefoneParaEntity(TelefoneDTORequest telefoneDTORequest, Long idUsuario){
+    public TelefoneEntity NovoTelefoneParaEntity(TelefoneDTORequest telefoneDTORequest, UsuarioEntity usuarioEntity){
         return TelefoneEntity.builder()
                 .ddd(telefoneDTORequest.getDdd())
                 .numero(telefoneDTORequest.getNumero())
-                .usuario_id(idUsuario)
+                .usuarioEntity(usuarioEntity)
                 .build();
     }
 }
