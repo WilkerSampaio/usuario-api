@@ -7,7 +7,7 @@ import com.wilker.usuario_api.infrastructure.dto.in.UsuarioDTORequest;
 import com.wilker.usuario_api.infrastructure.dto.out.EnderecoDTOResponse;
 import com.wilker.usuario_api.infrastructure.dto.out.TelefoneDTOResponse;
 import com.wilker.usuario_api.infrastructure.dto.out.UsuarioDTOResponse;
-import com.wilker.usuario_api.infrastructure.dto.out.ViaCepDTO;
+import com.wilker.usuario_api.infrastructure.dto.out.ViaCepDTOResponse;
 import com.wilker.usuario_api.infrastructure.security.SecurityConfig;
 import com.wilker.usuario_api.service.UsuarioService;
 import com.wilker.usuario_api.service.ViaCepService;
@@ -72,7 +72,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.cadastrarTelefone(telefoneDTORequest,token));
     }
     @GetMapping("/endereco/{cep}")
-    public ResponseEntity<ViaCepDTO> buscarDadosCep (@PathVariable ("cep") String cep){
+    public ResponseEntity<ViaCepDTOResponse> buscarDadosCep (@PathVariable ("cep") String cep){
         return ResponseEntity.ok(viaCepService.buscaDadosEndereco(cep));
 
     }

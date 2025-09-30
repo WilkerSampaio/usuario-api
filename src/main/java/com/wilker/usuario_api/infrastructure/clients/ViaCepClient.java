@@ -1,6 +1,6 @@
 package com.wilker.usuario_api.infrastructure.clients;
 
-import com.wilker.usuario_api.infrastructure.dto.out.ViaCepDTO;
+import com.wilker.usuario_api.infrastructure.dto.out.ViaCepDTOResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ViaCepClient {
 
     @GetMapping("/ws/{cep}/json/")
-    ViaCepDTO buscaDadosEndereco(@PathVariable("cep") String cep);
+    ViaCepDTOResponse buscaDadosEndereco(@PathVariable("cep") String cep);
 
 }
