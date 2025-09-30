@@ -1,7 +1,7 @@
 package com.wilker.usuario_api.service;
 
 import com.wilker.usuario_api.infrastructure.clients.ViaCepClient;
-import com.wilker.usuario_api.infrastructure.dto.out.ViaCepDTO;
+import com.wilker.usuario_api.infrastructure.dto.out.ViaCepDTOResponse;
 import com.wilker.usuario_api.infrastructure.exception.IllegalArgumentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 public class ViaCepService {
     private final ViaCepClient viaCepClient;
 
-    public ViaCepDTO buscaDadosEndereco(String cep){
+    public ViaCepDTOResponse buscaDadosEndereco(String cep){
         String cepFormatado = processarCep(cep);
-        return viaCepClient.buscaDadosEndereco(cep);
+        return viaCepClient.buscaDadosEndereco(cepFormatado);
     }
 
     private String processarCep(String cep){

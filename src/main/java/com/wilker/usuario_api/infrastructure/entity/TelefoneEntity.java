@@ -23,6 +23,7 @@ public class TelefoneEntity {
     @Column(name = "numero", length = 9)
     private String numero;
 
-    @Column(name = "usuario_id")
-    private Long usuario_id;;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private UsuarioEntity usuarioEntity;
 }
