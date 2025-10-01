@@ -43,7 +43,7 @@ API para gerenciamento de usuários com autenticação e autorização via JWT. 
 | POST    | `/telefone`           | Cadastrar novo telefone para usuário   | ✅           |
 | GET     | `/endereco/{cep}`     | Buscar dados de endereço pelo CEP      | ❌           |
 
-## 🚀 Uso com Docker Compose (modo simples)
+## 🐳 Uso com Docker Compose
 
 Este projeto já está preparado para ser usado apenas com Docker Compose — não é necessário compilar localmente, executar comandos Maven/Gradle, etc.  
 
